@@ -6,5 +6,5 @@
 - [x] GitHub Actions CI gate (`.github/workflows/ci.yml`) ready
 - [x] Add `LICENSE` (MIT or Apache-2.0) and `README.md` quickstart
 - [x] Confirm target GitHub org (`TradesmanUS` or `tradesmantools`) & repo visibility (`public`)
-- [ ] Run `git init && git add . && git commit -m "feat: OSS GSA game engine v0.1.0"`
-- [ ] Push `main`, tag `v0.1.0`, and verify green `OSS Proof Gate` workflow on GitHub
+- [x] Run `git init && git add . && git commit -m "feat: OSS GSA game engine v0.1.0"`
+- [x] Push `main`, tag `v0.1.0`, and verify green `OSS Proof Gate` workflow on GitHub
