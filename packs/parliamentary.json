@@ -1,0 +1,15 @@
+{
+  "pack_id": "parliamentary",
+  "title": "Generalized Parliamentary Governance",
+  "initial_state": "OPEN_FLOOR",
+  "seats": ["chair", "builder", "reviewer"],
+  "cards": {
+    "main_motion": {"allowed_seats": ["builder", "reviewer"], "from_states": ["OPEN_FLOOR"], "to_state": "MOTION_PENDING_SECOND", "effect": "open_item", "guards": {"forbids_active": true}},
+    "second": {"allowed_seats": ["builder", "reviewer", "chair"], "from_states": ["MOTION_PENDING_SECOND"], "to_state": "DEBATE_OPEN", "effect": "noop", "guards": {"requires_active": true, "distinct_from_proposer": true}},
+    "scope_tweak": {"allowed_seats": ["builder", "reviewer", "chair"], "from_states": ["DEBATE_OPEN", "AMENDMENT_ON_FLOOR"], "to_state": "AMENDMENT_ON_FLOOR", "effect": "append_amendment", "guards": {"requires_active": true}},
+    "timebox_spike": {"allowed_seats": ["chair", "builder"], "from_states": ["DEBATE_OPEN", "AMENDMENT_ON_FLOOR"], "to_state": "OPEN_FLOOR", "effect": "close_item", "guards": {"requires_active": true}},
+    "park_it": {"allowed_seats": ["chair", "reviewer"], "from_states": ["MOTION_PENDING_SECOND", "DEBATE_OPEN", "AMENDMENT_ON_FLOOR"], "to_state": "OPEN_FLOOR", "effect": "table_item", "guards": {"requires_active": true}},
+    "call_the_question": {"allowed_seats": ["chair"], "from_states": ["DEBATE_OPEN", "AMENDMENT_ON_FLOOR"], "to_state": "OPEN_FLOOR", "effect": "resolve_vote", "guards": {"requires_active": true}},
+    "point_of_order": {"allowed_seats": ["chair", "builder", "reviewer"], "from_states": ["*"], "to_state": "KEEP", "effect": "noop"}
+  }
+}

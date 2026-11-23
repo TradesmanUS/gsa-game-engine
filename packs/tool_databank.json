@@ -1,0 +1,13 @@
+{
+  "pack_id": "tool_databank",
+  "title": "TradesmanTools - Tool Data Bank Game",
+  "initial_state": "IDLE",
+  "seats": ["scout", "analyst", "auditor"],
+  "cards": {
+    "ingest_snapshot": {"allowed_seats": ["scout"], "from_states": ["IDLE"], "to_state": "SNAPSHOT_INGESTED", "effect": "open_item", "guards": {"forbids_active": true, "required_keys": ["corridor", "category", "buy_price"], "min_values": {"buy_price": 1}}},
+    "verify_comp": {"allowed_seats": ["analyst"], "from_states": ["SNAPSHOT_INGESTED"], "to_state": "COMP_VERIFIED", "effect": "merge_payload", "guards": {"requires_active": true, "distinct_from_proposer": true, "required_keys": ["comp_median", "comp_count"], "min_values": {"comp_median": 1, "comp_count": 3}}},
+    "score_deal": {"allowed_seats": ["analyst", "auditor"], "from_states": ["COMP_VERIFIED"], "to_state": "SCORED", "effect": "score_tool_deal", "guards": {"requires_active": true}},
+    "publish_receipt": {"allowed_seats": ["auditor"], "from_states": ["SCORED"], "to_state": "IDLE", "effect": "close_item", "guards": {"requires_active": true}},
+    "flag_anomaly": {"allowed_seats": ["scout", "analyst", "auditor"], "from_states": ["*"], "to_state": "KEEP", "effect": "noop"}
+  }
+}

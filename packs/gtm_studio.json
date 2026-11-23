@@ -1,0 +1,14 @@
+{
+  "pack_id": "gtm_studio",
+  "title": "GSA Studio - GTM as a Service",
+  "initial_state": "SIGNAL_IDLE",
+  "seats": ["strategist", "editor", "publisher"],
+  "cards": {
+    "capture_signal": {"allowed_seats": ["strategist"], "from_states": ["SIGNAL_IDLE"], "to_state": "SIGNAL_CAPTURED", "effect": "open_item", "guards": {"forbids_active": true, "required_keys": ["channel", "corridor", "source_proof_hash"]}},
+    "draft_brief": {"allowed_seats": ["editor"], "from_states": ["SIGNAL_CAPTURED"], "to_state": "BRIEF_DRAFTED", "effect": "merge_payload", "guards": {"requires_active": true, "distinct_from_proposer": true, "required_keys": ["hook", "cta"]}},
+    "submit_gate": {"allowed_seats": ["editor", "strategist"], "from_states": ["BRIEF_DRAFTED"], "to_state": "GATE_REVIEW", "effect": "append_amendment", "guards": {"requires_active": true}},
+    "approve_publish": {"allowed_seats": ["publisher"], "from_states": ["GATE_REVIEW"], "to_state": "SIGNAL_IDLE", "effect": "resolve_vote", "guards": {"requires_active": true}},
+    "hold_brief": {"allowed_seats": ["publisher", "editor"], "from_states": ["SIGNAL_CAPTURED", "BRIEF_DRAFTED", "GATE_REVIEW"], "to_state": "SIGNAL_IDLE", "effect": "table_item", "guards": {"requires_active": true}},
+    "compliance_ping": {"allowed_seats": ["strategist", "editor", "publisher"], "from_states": ["*"], "to_state": "KEEP", "effect": "noop"}
+  }
+}
