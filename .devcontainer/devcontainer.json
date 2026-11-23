@@ -1,0 +1,6 @@
+{
+  "name": "GSA Studio Game Engine (Tool Data Bank)",
+  "image": "mcr.microsoft.com/devcontainers/python:3.12",
+  "postCreateCommand": "python3 -m unittest discover -s tests -v",
+  "forwardPorts": [8790]
+}
